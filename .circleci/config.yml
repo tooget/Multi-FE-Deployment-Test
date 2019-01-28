@@ -1,28 +1,8 @@
-machine:
-  environment:
-    CIRCLE_BUILD_DIR: $HOME/$CIRCLE_PROJECT_REPONAME
-    PATH: $PATH:$CIRCLE_BUILD_DIR/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
-
-  post:
-    - mkdir -p $CIRCLE_BUILD_DIR/bin
-  node:
-    version: 8.9.1
-
 dependencies:
-  pre:
-    - go get -v github.com/bep/s3deploy
-  override:
-    - yarn
-  cache_directories:
-    - ~/.cache/yarn
-    - bin
-
-test:
-  override
-    - yarn run build
-
+    override:
+        - sudo pip install awscli
 deployment:
-  s3up:
-    branch: develop
+  prod:
+    branch: master
     commands:
-      - s3deploy -source=dist/ -region=ap-northeast-2 -bucket=connect-four-vue
+      - aws s3 sync /home/ubuntu/connect-for-vue s3://connect-for-vue --delete
