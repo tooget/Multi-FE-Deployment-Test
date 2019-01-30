@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "deploy": "yarn build && aws s3 sync dist/ s3://connect-for-vue --delete"
+    "deploy": "yarn build && aws s3 sync dist/ s3://connect-for-vue-frontend2 --delete"
   },
   "dependencies": {
     "vue": "^2.5.2",

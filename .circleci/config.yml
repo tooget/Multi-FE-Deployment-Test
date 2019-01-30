@@ -1,44 +1,76 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
+
 jobs:
-  build:
+
+  frontend1_deploy:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
+      - image: circleci/node:8.15
     working_directory: ~/repo
-
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
       - run: yarn install
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      # run tests!
-      # - run: yarn test
-      - run: sudo apt-get update && sudo apt-get install -y python-dev
-      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py
-      - run: sudo python get-pip.py
-      - run: sudo pip install awscli --upgrade
+      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py && sudo apt-get update
+      - run: sudo apt-get install python3-dev python3-pip
+      - run: sudo pip3 install awscli --upgrade
       - run: aws --version
       - run: aws s3 ls
       - run: yarn run deploy
+
+  frontend2_deploy:
+    docker:
+      - image: circleci/node:8.15
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py && sudo apt-get update
+      - run: sudo apt-get install python3-dev python3-pip
+      - run: sudo pip3 install awscli --upgrade
+      - run: aws --version
+      - run: aws s3 ls
+      - run: yarn run deploy
+
+  test_deploy1:
+    docker:
+      - image: circleci/node:8.15
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: la -al
+
+  test_deploy2:
+    docker:
+      - image: circleci/node:8.15
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: pwd
+
+workflows:
+  version: 2
+
+  build-deploy:
+    jobs:
+      - test_deploy1
+      - deploy-prod:
+          requires:
+            - test_deploy2
+          filters:
+            branches:
+              only: master
