@@ -67,10 +67,11 @@ workflows:
 
   build-deploy:
     jobs:
-      - test_deploy1
+      - test_deploy1:
+          filters:
+            branches:
+              only: master
       - test_deploy2:
-          requires:
-            - test_deploy1
           filters:
             branches:
               only: master
