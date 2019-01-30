@@ -52,7 +52,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: la -al
+      - run: sudo ls -al
 
   test_deploy2:
     docker:
@@ -60,7 +60,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: pwd
+      - run: sudo pwd
 
 workflows:
   version: 2
@@ -68,9 +68,9 @@ workflows:
   build-deploy:
     jobs:
       - test_deploy1
-      - deploy-prod:
+      - test_deploy2:
           requires:
-            - test_deploy2
+            - test_deploy1
           filters:
             branches:
               only: master
