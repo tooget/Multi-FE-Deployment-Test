@@ -1,0 +1,21 @@
+template_path: DBClusters.py
+dependencies:
+  - sceptreprj-dev/02-Network/02-dbSubnetGroup.yaml
+  - sceptreprj-dev/02-Network/02-sg.yaml
+sceptre_user_data:
+  dbcluster_prefix: rdsSimplesmartcheckAurora
+  dbcluster_params_dbengine_prefix: aurora
+  dbcluster_params_dbengine_version: 5.6.10a
+  dbcluster_params_dbengine_mode: serverless
+  dbcluster_params_scaling_mincapacity: 2
+  dbcluster_params_scaling_maxcapacity: 2
+  dbcluster_params_scaling_autopausesec: 300
+  dbcluster_params_dbsg_dbsgid: !stack_output sceptreprj-dev/02-Network/02-dbSubnetGroup.yaml::dbsgidoutput
+  dbcluster_params_sg_sgid: !stack_output sceptreprj-dev/02-Network/02-sg.yaml::sgidoutput
+  dbcluster_params_identifier: rds-simplesmartcheck-aurora 
+  dbcluster_params_master_username_prefix: dbusername
+  dbcluster_params_master_username: insane
+  dbcluster_params_master_userpassword_prefix: dbuserpassword
+  dbcluster_params_master_userpassword: insaneinsane!
+  dbcluster_params_dbendpoint_prefix: dbendpoint
+  dbcluster_params_dbendpoint_getatt: Endpoint.Address

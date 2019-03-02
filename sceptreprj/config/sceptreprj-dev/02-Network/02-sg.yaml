@@ -1,0 +1,28 @@
+template_path: SecurityGroups.py
+dependencies:
+  - sceptreprj-dev/02-Network/02-vpc.yaml
+sceptre_user_data:
+  sg_vpcid: !stack_output sceptreprj-dev/02-Network/02-vpc.yaml::vpcidoutput
+  sg_prefix: sgnew
+  sg_params_description: Enable private access via port 3306
+  sg_params_ingress1_prefix: udp
+  sg_params_ingress1_fromport: 53
+  sg_params_ingress1_toport: 53
+  sg_params_ingress1_cidrip: 0.0.0.0/0
+  sg_params_ingress2_prefix: tcp
+  sg_params_ingress2_fromport: 22
+  sg_params_ingress2_toport: 22
+  sg_params_ingress2_cidrip: 0.0.0.0/0
+  sg_params_ingress3_prefix: tcp
+  sg_params_ingress3_fromport: 80
+  sg_params_ingress3_toport: 80
+  sg_params_ingress3_cidrip: 0.0.0.0/0
+  sg_params_ingress4_prefix: tcp
+  sg_params_ingress4_fromport: 443
+  sg_params_ingress4_toport: 443
+  sg_params_ingress4_cidrip: 0.0.0.0/0
+  sg_params_ingress5_prefix: tcp
+  sg_params_ingress5_fromport: 3306
+  sg_params_ingress5_toport: 3306
+  sg_params_ingress5_cidrip: 0.0.0.0/0
+  sg_params_sgid_prefix: sgidoutput

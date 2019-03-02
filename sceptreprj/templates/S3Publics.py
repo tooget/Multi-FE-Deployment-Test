@@ -35,5 +35,5 @@ class S3Publics(object):
 
 def sceptre_handler(sceptre_user_data):
     s3public = S3Publics(sceptre_user_data)
-    print(s3public.template.to_yaml())
+    # print(s3public.template.to_yaml())
     return s3public.template.to_yaml()

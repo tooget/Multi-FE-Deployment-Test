@@ -17,5 +17,5 @@ class S3Privates(object):
 
 def sceptre_handler(sceptre_user_data):
     s3private = S3Privates(sceptre_user_data)
-    print(s3private.template.to_yaml())
+    # print(s3private.template.to_yaml())
     return s3private.template.to_yaml()

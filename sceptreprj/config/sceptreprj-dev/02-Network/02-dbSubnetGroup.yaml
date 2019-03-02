@@ -1,0 +1,10 @@
+template_path: DBSubnetGroups.py
+dependencies:
+  - sceptreprj-dev/02-Network/02-privateSubnet1.yaml
+  - sceptreprj-dev/02-Network/02-privateSubnet2.yaml
+sceptre_user_data:
+  dbsg_prefix: dbsgnew
+  dbsg_params_description: Subnets available for the rds-simplesmartcheck-aurora DB Instance
+  dbsg_params_privatesubnet1_subnetid: !stack_output sceptreprj-dev/02-Network/02-privateSubnet1.yaml::subnetidoutput
+  dbsg_params_privatesubnet2_subnetid: !stack_output sceptreprj-dev/02-Network/02-privateSubnet2.yaml::subnetidoutput
+  dbsg_params_dbsgid_prefix: dbsgidoutput

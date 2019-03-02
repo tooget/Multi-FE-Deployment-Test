@@ -1,0 +1,17 @@
+template_path: InternetGateways.py
+dependencies:
+  - sceptreprj-dev/02-Network/02-vpc.yaml
+  - sceptreprj-dev/02-Network/02-publicSubnet1.yaml
+  - sceptreprj-dev/02-Network/02-privateSubnet1.yaml
+  - sceptreprj-dev/02-Network/02-privateSubnet2.yaml
+  - sceptreprj-dev/02-Network/02-rtb.yaml
+sceptre_user_data:
+  igw_vpcid: !stack_output sceptreprj-dev/02-Network/02-vpc.yaml::vpcidoutput
+  igw_params_publicrtb_prefix: publicrtb
+  igw_params_publicrtb_rtbid: !stack_output sceptreprj-dev/02-Network/02-rtb.yaml::publicrtbidoutput
+  igw_params_privatertb_prefix: privatertb
+  igw_params_privatertb_rtbid: !stack_output sceptreprj-dev/02-Network/02-rtb.yaml::privatertbidoutput
+  igw_params_rtbdestination_cidrblock: 0.0.0.0/0
+  igw_prefix: igwnew
+  igw_params_attachment_prefix: igwvpcattach
+  igw_params_igwid_prefix: igwidoutput

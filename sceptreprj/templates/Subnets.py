@@ -1,4 +1,4 @@
-from troposphere import Template, Ref, Tags, Join
+from troposphere import Template, Output, Ref, Tags, Join
 from troposphere.ec2 import Subnet
 
 
@@ -13,6 +13,7 @@ class Subnets(object):
             self.sceptreUserData['subnet_params_azlocation'],
             self.sceptreUserData['subnet_params_access'],
         )
+        self._addSubnetIdOutput()
 
     def _createSubnet(self, subnet_prefix, vpcid, cidr_params, az_params, access_params):
         self.subnet = self.template.add_resource(Subnet(
@@ -25,7 +26,13 @@ class Subnets(object):
             )
         ))
 
+    def _addSubnetIdOutput(self):
+        self.template.add_output(Output(
+            self.sceptreUserData['subnet_params_subnetid_prefix'],
+            Value = Ref(self.subnet),
+        ))
+
 def sceptre_handler(sceptre_user_data):
     subnet = Subnets(sceptre_user_data)
-    print(subnet.template.to_yaml())
+    # print(subnet.template.to_yaml())
     return subnet.template.to_yaml()

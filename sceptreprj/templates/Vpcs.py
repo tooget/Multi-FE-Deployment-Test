@@ -1,4 +1,4 @@
-from troposphere import Template, Parameter, GetAtt, Output, Ref, Tags
+from troposphere import Template, Parameter, Output, Ref, Tags
 from troposphere.ec2 import VPC
 
 
@@ -28,5 +28,5 @@ class Vpcs(object):
 
 def sceptre_handler(sceptre_user_data):
     vpc = Vpcs(sceptre_user_data)
-    print(vpc.template.to_yaml())
+    # print(vpc.template.to_yaml())
     return vpc.template.to_yaml()
