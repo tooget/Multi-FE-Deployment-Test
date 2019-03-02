@@ -1,0 +1,6 @@
+template_path: S3Publics.py
+sceptre_user_data:
+  s3_bucket: adminSmartcheck
+  s3_policy: adminBucketPolicy
+  s3_hosting_subdomain_url: admin.smartcheck.ab
+  s3_hosting_rootfile: index.html

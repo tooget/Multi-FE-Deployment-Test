@@ -1,0 +1,4 @@
+template_path: S3Privates.py
+sceptre_user_data:
+  s3_bucket: backendSmartcheck
+  s3_hosting_subdomain_url: backend.smartcheck.ab

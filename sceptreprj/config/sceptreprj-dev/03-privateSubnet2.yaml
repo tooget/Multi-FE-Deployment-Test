@@ -1,0 +1,9 @@
+template_path: Subnets.py
+dependencies:
+  - sceptreprj-dev/02-vpc.yaml
+sceptre_user_data:
+  subnet_vpcid: !stack_output sceptreprj-dev/02-vpc.yaml::vpcidoutput
+  subnet_prefix: privatesubnet2
+  subnet_params_cidrblock: 10.0.2.0/24
+  subnet_params_access: -private
+  subnet_params_azlocation: ap-northeast-1c

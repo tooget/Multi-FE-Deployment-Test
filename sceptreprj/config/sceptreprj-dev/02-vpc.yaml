@@ -1,0 +1,5 @@
+template_path: Vpcs.py
+sceptre_user_data:
+  vpc_prefix: vpcnew
+  vpc_params_cidrblock: 10.0.0.0/16
+  vpc_params_vpcid_prefix: vpcidoutput
