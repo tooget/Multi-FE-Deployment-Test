@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+troposphere = "*"
+sceptre = {editable = true,git = "https://github.com/tooget/sceptre.git",ref = "a43311693188695735c7fb5c93dc38b3fd6b1cb9"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
