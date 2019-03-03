@@ -1,5 +1,5 @@
 from troposphere import Template, Output, Ref, Tags
-from troposphere.ec2 import InternetGateway, VPCGatewayAttachment, Route
+from troposphere.ec2 import InternetGateway, VPCGatewayAttachment
 
 
 class InternetGateways(object):
@@ -8,16 +8,7 @@ class InternetGateways(object):
         self.sceptreUserData = sceptre_user_data
         self._createIgw()
         self._attachIgwToVpc()
-        self._attachRtbToIgw(
-            self.sceptreUserData['igw_params_publicrtb_prefix'],
-            self.sceptreUserData['igw_params_publicrtb_rtbid'],
-            self.sceptreUserData['igw_params_rtbdestination_cidrblock'],
-        )
-        self._attachRtbToIgw(
-            self.sceptreUserData['igw_params_privatertb_prefix'],
-            self.sceptreUserData['igw_params_privatertb_rtbid'],
-            self.sceptreUserData['igw_params_rtbdestination_cidrblock'],
-        )
+        self._addIgwIdOutput()
 
     def _createIgw(self):
         self.igw = self.template.add_resource(InternetGateway(
@@ -34,18 +25,10 @@ class InternetGateways(object):
             InternetGatewayId = Ref(self.igw),
         ))
 
-    def _attachRtbToIgw(self, rtb_prefix, rtbid, destination_cidrblock):
-        self.template.add_resource(Route(
-            rtb_prefix,
-            GatewayId = Ref(self.igw),
-            RouteTableId = rtbid,
-            DestinationCidrBlock = destination_cidrblock
-        ))
-
     def _addIgwIdOutput(self):
         self.template.add_output(Output(
-            self.sceptreUserData['vpc_params_vpcid_prefix'],
-            Value = Ref(self.vpc),
+            self.sceptreUserData['igw_params_igwid_prefix'],
+            Value = Ref(self.igw),
         ))
 
 def sceptre_handler(sceptre_user_data):

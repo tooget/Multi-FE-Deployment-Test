@@ -1,0 +1,11 @@
+template_path: IgwRtbRoutings.py
+dependencies:
+  - sceptreprj-dev/02-Network/02-igw.yaml
+  - sceptreprj-dev/02-Network/02-rtb.yaml
+sceptre_user_data:
+  igwrtbattachment_params_igwid: !stack_output sceptreprj-dev/02-Network/02-igw.yaml::igwidoutput
+  igwrtbattachment_params_publicrtb_prefix: publicrtb
+  igwrtbattachment_params_publicrtb_rtbid: !stack_output sceptreprj-dev/02-Network/02-rtb.yaml::publicrtbidoutput
+  igwrtbattachment_params_privatertb_prefix: privatertb
+  igwrtbattachment_params_privatertb_rtbid: !stack_output sceptreprj-dev/02-Network/02-rtb.yaml::privatertbidoutput
+  igwrtbattachment_params_rtbdestination_cidrblock: 0.0.0.0/0
