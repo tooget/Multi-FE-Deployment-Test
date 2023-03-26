@@ -82,8 +82,8 @@ workflows:
       - frontend1_deploy:
           filters:
             branches:
-              only: master
+              only: main
       - frontend2_deploy:
           filters:
             branches:
-              only: master
+              only: main
